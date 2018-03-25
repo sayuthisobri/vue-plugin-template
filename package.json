@@ -8,6 +8,7 @@
   "author": "Sayuthi Sobri <me@msms.cf>",
   "license": "MIT",
   "dependencies": {
-    "git-config": "^0.0.7"
+    "git-config": "^0.0.7",
+    "yarn-or-npm": "^2.0.4"
   }
 }
