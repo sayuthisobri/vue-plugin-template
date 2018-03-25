@@ -1,7 +1,13 @@
 const path = require('path');
 const {spawn, spawnSync} = require('child_process');
-spawnSync('npm', ['install']);
-const yon = require('yarn-or-npm').hasYarn() ? 'yarn' : 'npm';
+let yon;
+try {
+    spawnSync('yarn', '-v');
+    yon = 'yarn';
+    console.log(`use yarn`);
+} catch (e) {
+    yon = 'npm';
+}
 
 let gitConfig;
 try {
