@@ -4,8 +4,8 @@
   "version": "2.1.5",
   "description": "Template for vue plugins",
   "main": "index.js",
-  "repository": "git@github.com:mgesmundo/vuejs-plugin-template.git",
-  "author": "Marcello Gesmundo <mgesmundo@yoovant.com>",
+  "repository": "git@github.com:sayuthisobri/vuejs-plugin-template.git",
+  "author": "Sayuthi Sobri <me@msms.cf>",
   "license": "MIT",
   "dependencies": {
     "git-config": "^0.0.7"

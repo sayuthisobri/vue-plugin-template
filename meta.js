@@ -64,5 +64,5 @@ module.exports = {
     }
   },
   skipInterpolation: 'src/**/*.vue',
-  "completeMessage": "To get started:\n\n  cd {{destDirName}}\n  npm install\n  npm run dev"
+  "completeMessage": "To get started:\n\n  cd {{destDirName}}\n  yarn install\n  yarn run dev"
 }

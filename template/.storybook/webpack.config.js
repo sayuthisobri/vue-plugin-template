@@ -1,10 +1,10 @@
 const path = require('path');
 // load the default config generator.
-const genDefaultConfig = require('@storybook/vue/dist/server/config/defaults/webpack.config.js')
+const genDefaultConfig = require('@storybook/vue/dist/server/config/defaults/webpack.config.js');
 const globalPaths = [
   path.resolve(__dirname, '../src'),
   path.resolve(__dirname, '../static')
-]
+];
 
 module.exports = (baseConfig, env) => {
   const config = genDefaultConfig(baseConfig, env);
@@ -13,8 +13,8 @@ module.exports = (baseConfig, env) => {
   config.module.rules.push({
     test: /\.(scss|sass)$/,
     use: [
-      { loader: 'style-loader' },
-      { loader: 'css-loader' }, {
+      {loader: 'style-loader'},
+      {loader: 'css-loader'}, {
         loader: 'sass-loader',
         options: {
           indentedSyntax: true
@@ -22,28 +22,28 @@ module.exports = (baseConfig, env) => {
       }
     ],
     include: globalPaths
-  })
+  });
   config.module.rules.push({
     test: /\.less$/,
     use: {
       loader: 'less-loader'
     },
     include: globalPaths
-  })
+  });
   config.module.rules.push({
     test: /\.styl$/,
     use: {
       loader: 'stylus-loader'
     },
     include: globalPaths
-  })
+  });
   config.module.rules.push({
     test: /\.css$/,
     use: {
       loader: 'style-loader!css-loader'
     },
     include: globalPaths
-  })
+  });
   config.module.rules.push({
     test: /\.(woff|woff2)$/,
     use: {
@@ -55,17 +55,17 @@ module.exports = (baseConfig, env) => {
       }
     },
     include: globalPaths
-  })
+  });
   config.module.rules.push({
     test: /\.(ttf|eot|svg|png)$/,
     use: {
-        loader: 'file-loader',
-        options: {
-          name: 'fonts/[hash].[ext]'
-        }
+      loader: 'file-loader',
+      options: {
+        name: 'fonts/[hash].[ext]'
+      }
     },
     include: globalPaths
-  })
+  });
 
   return config
-}
+};

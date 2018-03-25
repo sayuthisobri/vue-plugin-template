@@ -1,5 +1,5 @@
-const path = require('path')
-const glob = require('glob')
+const path = require('path');
+const glob = require('glob');
 
 module.exports = {
   entry: [path.resolve(__dirname, '../test/unit/setup.js')]
@@ -13,10 +13,11 @@ module.exports = {
     extensions: ['.js', '.json', '.vue']
   },
   module: {
+    exprContextCritical: false,
     rules: [
       { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
       { test: /\.vue$/, loader: 'vue-loader' }
     ]
   },
   devtool: 'source-map'
-}
+};

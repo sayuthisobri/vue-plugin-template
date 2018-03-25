@@ -5,11 +5,13 @@
       <button
         type="button"
         @click="increment"
-      >+</button>
+      >+
+      </button>
       <button
         type="button"
         @click="decrement"
-      >-</button>
+      >-
+      </button>
     </div>
   </div>
 </template>
@@ -25,41 +27,45 @@
       }
     },
 
-    data () {
+    data() {
       return {
         msg: 'Welcome to Your Vue.js component'
       }
     },
 
-    mounted () {
+    mounted() {
       this.$nextTick(() => {
-        const nop = () => {}
+        const nop = () => {
+        };
         nop()
       })
     },
 
     methods: {
-      increment () {
+      increment() {
         this.$emit('increment')
       },
 
-      decrement () {
+      decrement() {
         this.$emit('decrement')
       }
     }
   }
 </script>
 
-<style lang="sass">
+<style lang="scss">
   .conter,
   .counter-value,
-  .counter-controls
-    display: inline-block
+  .counter-controls {
+    display: inline-block;
+  }
 
   .counter-value,
-  .counter-controls
-    vertical-align: middle
+  .counter-controls {
+    vertical-align: middle;
+  }
 
-  .counter-value
-    margin: 0 5px 0 0
+  .counter-value {
+    margin: 0 5px 0 0;
+  }
 </style>
