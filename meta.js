@@ -1,19 +1,18 @@
 const path = require('path');
-const {spawn, spawnSync} = require('child_process');
+const {spawn, execSync} = require('child_process');
 let yon;
 try {
-    spawnSync('yarn', '-v');
+    execSync('yarn -v');
     yon = 'yarn';
-    console.log(`use yarn`);
 } catch (e) {
     yon = 'npm';
 }
 
 let gitConfig;
 try {
-    gitConfig = require('git-config').sync()
+    gitConfig = require('git-config').sync();
 } catch (e) {
-    gitConfig = {}
+    gitConfig = {github: null}
 }
 
 function kebabToCamel(name) {
@@ -27,7 +26,7 @@ module.exports = {
         name: {
             type: 'string',
             required: true,
-            message: 'Plugin name'
+            message: `Plugin name`
         },
         library: {
             type: 'string',
@@ -59,7 +58,7 @@ module.exports = {
             type: 'string',
             required: false,
             message: 'GitHub Account',
-            default: gitConfig['github'] && gitConfig['github'].user
+            default: gitConfig.github && gitConfig.github.user
         },
     },
     helpers: {
@@ -81,7 +80,7 @@ module.exports = {
     complete: function (data, {chalk}) {
         const green = chalk.green;
         const cwd = path.join(process.cwd(), data['inPlace'] ? '' : data['destDirName']);
-        console.log(`${chalk.yellow('Installing dependency..')}`);
+        console.log(`${chalk.yellow('Installing dependency using ' + yon + '...')}`);
         runCommand(yon, ['install'], {
             cwd,
         }).then(() => {
