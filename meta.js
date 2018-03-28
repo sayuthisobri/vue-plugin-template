@@ -109,6 +109,7 @@ module.exports = {
     },
     filters: {
         'test/unit/setup.js': `test === 'testem'`,
+        'scripts/webpack.config.unit.js': `test === 'testem'`,
         'testem.json': `test === 'testem'`,
     }
 };
