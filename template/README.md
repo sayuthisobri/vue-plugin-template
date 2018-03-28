@@ -7,6 +7,7 @@
 ## Installation
 
 ```bash
+yarn add {{ name }}
 npm install --save {{ name }}
 ```
 
@@ -15,12 +16,12 @@ npm install --save {{ name }}
 ### Bundler (Webpack, Rollup)
 
 ```js
-import Vue from 'vue'
-import {{ library }} from '{{ name }}'
+import Vue from 'vue';
+import {{ library }} from '{{ name }}';
 // You need a specific loader for CSS files like https://github.com/webpack/css-loader
-import '{{ name }}/dist/{{ name }}.css'
+import '{{ name }}/dist/{{ name }}.css';
 
-Vue.use({{ library }})
+Vue.use({{ library }});
 ```
 
 ### Browser
@@ -28,8 +29,8 @@ Vue.use({{ library }})
 ```html
 <!-- Include after Vue -->
 <!-- Local files -->
-<link rel="stylesheet" href="{{ name }}/dist/{{ name }}.css"></link>
-<script src="{{ name }}/dist/{{ name }}.js"></script>
+<link rel="stylesheet" href="~{{ name }}/dist/{{ name }}.css"></link>
+<script src="~{{ name }}/dist/{{ name }}.js"></script>
 
 <!-- From CDN -->
 <link rel="stylesheet" href="https://unpkg.com/{{ name }}/dist/{{ name }}.css"></link>
@@ -41,13 +42,14 @@ Vue.use({{ library }})
 ### Launch dev environment
 
 ```bash
-npm run storybook
+yarn run storybook
 ```
 
 ### Launch test
 
 ```bash
-npm run test
+yarn test
+yarn run watch:test
 ```
 
 ### Build
@@ -55,7 +57,7 @@ npm run test
 Bundle the js and css of to the `dist` folder:
 
 ```bash
-npm run build
+yarn build
 ```
 
 ## Publishing

@@ -53,7 +53,7 @@ const config = {
  * ${meta.homepage ? meta.homepage + '/blob/master/LICENSE' : ''}
  */`
   },
-  onwarn: function (message) {
+  onwarn: function () {
     // https://github.com/rollup/rollup/issues/408
     // disable some unwanted warnig
   }
@@ -90,8 +90,8 @@ switch (process.env.BUILD) {
       uglify({
         output: {
           comments: function (node, comment) {
-            var text = comment.value;
-            var type = comment.type;
+            let text = comment.value;
+            let type = comment.type;
             if (type === 'comment2') {
               // multiline comment
               return /@preserve|@license|@cc_on/i.test(text)

@@ -8,7 +8,17 @@
   ],
   "env": {
     "test": {
-      "presets": ["power-assert"]
+      "presets": [
+        "power-assert"{{#if_eq test "jest"}},
+        [
+          "env",
+          {
+            "targets": {
+              "node": "current"
+            }
+          }
+        ]{{/if_eq}}
+      ]
     }
   }
 }

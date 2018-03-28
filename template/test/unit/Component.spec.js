@@ -1,17 +1,16 @@
-import assert from 'power-assert'
-import Vue from 'vue'
-import Component from '../../src/Component'
+import assert from 'power-assert';
+import {shallow} from '@vue/test-utils';
+import Component from '../../src/Component';
 
 describe('Component', () => {
-  const Counter = Vue.extend(Component);
+  const wrapper = shallow(Component);
 
-  it('accepts value prop', () => {
-    const vm = new Counter({
-      propsData: {
-        value: 3
-      }
-    });
+  it('create vue instance', () => {
+    assert(wrapper.isVueInstance());
+  });
 
-    assert(vm.value === 3)
+  it('counter should reset to value once value change', () => {
+    wrapper.setProps({'value': 3});
+    assert(wrapper.vm.counter === 3);
   })
 });

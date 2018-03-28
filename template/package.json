@@ -9,22 +9,27 @@
     "dist"
   ],
   "scripts": {
-    "start": "yarn run storybook",
-    "prepublishOnly": "yarn run release",
+    "start": "yon run storybook",
+    "prepublishOnly": "yon run release",
     "clean": "rm -rf dist .tmp",
-    "build": "yarn run clean && run-p build:es build:cjs build:dev build:prod",
+    "build": "yon run clean && run-p build:es build:cjs build:dev build:prod",
     "build:es": "rollup -c scripts/rollup.config.js --environment BUILD:es",
     "build:cjs": "rollup -c scripts/rollup.config.js --environment BUILD:cjs",
     "build:dev": "rollup -c scripts/rollup.config.js --environment BUILD:dev",
     "build:prod": "rollup -c scripts/rollup.config.js --environment BUILD:prod",
+{{#if_eq test "testem"}}
     "build:test": "cross-env NODE_ENV=test webpack --config scripts/webpack.config.unit.js",
-    "watch:test": "cross-env NODE_ENV=test webpack -w --config scripts/webpack.config.unit.js",
-    "lint": "eslint --fix \"@(src|test|scripts)/**/*.js\"",
+    "test:watch": "cross-env NODE_ENV=test webpack -w --config scripts/webpack.config.unit.js",
     "testem": "testem",
     "testem:ci": "testem ci --launch Chrome",
-    "test": "yarn run test:unit",
+    "test": "yon run test:unit",
     "test:unit": "run-s build:test testem:ci",
     "test:dev": "run-p watch:test testem",
+{{else}}
+    "test": "cross-env NODE_ENV=test jest || echo 'Test Failed'",
+    "test:watch": "yon run test --watchAll",
+{{/if_eq}}
+    "lint": "eslint --fix \"@(src|test|scripts)/**/*.js\"",
     "release": "run-s lint test clean build",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
@@ -34,6 +39,7 @@
     "@storybook/addon-actions": "^3.3.3",
     "@storybook/addon-links": "^3.3.3",
     "@storybook/vue": "^3.3.3",
+    "@vue/test-utils": "^1.0.0-beta.12",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.1.2",
     "babel-loader": "^7.1.2",
@@ -48,12 +54,18 @@
     "eslint": "^4.14.0",
     "eslint-config-standard": "^11.0.0-beta.0",
     "eslint-plugin-import": "^2.8.0",
+{{#if_eq test "testem"}}
     "eslint-plugin-mocha": "^5.0.0",
+{{/if_eq}}
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
     "eslint-plugin-vue": "^4.0.1",
     "glob": "^7.1.2",
+{{#if_eq test "jest"}}
+    "jest": "^22.4.3",
+    "jest-serializer-vue": "^1.0.0",
+{{/if_eq}}
     "node-sass": "^4.8.3",
     "npm-run-all": "^4.1.2",
     "parse5": "^2.1.0",
@@ -69,26 +81,50 @@
     "rollup-plugin-vue": "^3.0.0",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.20.3",
+{{#if_eq test "testem"}}
     "testem": "^2.0.0",
+{{/if_eq}}
     "uglify-es": "^3.3.4",
     "uglify-js": "^3.3.4",
     "vue": "^2.5.13",
+{{#if_eq test "jest"}}
+    "vue-jest": "^2.3.0",
+{{/if_eq}}
     "vue-loader": "^14.2.2",
     "vue-template-compiler": "^2.5.13",
-    "webpack": "^3.10.0"
+    "webpack": "^3.10.0",
+    "yarn-or-npm": "^2.0.0"
   },
   "peerDependencies": {
     "vue": "^2.5.13"
   },
+{{#if_eq test "jest"}}
+  "jest": {
+    "moduleFileExtensions": [
+    "js",
+    "vue"
+    ],
+    "moduleNameMapper": {
+    "^@/(.*)$": "<rootDir>/src/$1"
+    },
+    "transform": {
+    "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
+    ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest"
+    },
+    "snapshotSerializers": [
+    "<rootDir>/node_modules/jest-serializer-vue"
+    ]
+  },
+{{/if_eq}}
 {{#unless_eq githubAccount ""}}
-"repository": {
-"type": "git",
-"url": "git+https://github.com/{{ githubAccount }}/{{ name }}.git"
-},
-"bugs": {
-"url": "https://github.com/{{ githubAccount }}/{{ name }}/issues"
-},
-"homepage": "https://github.com/{{ githubAccount }}/{{ name }}#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/{{ githubAccount }}/{{ name }}.git"
+  },
+  "bugs": {
+    "url": "https://github.com/{{ githubAccount }}/{{ name }}/issues"
+  },
+  "homepage": "https://github.com/{{ githubAccount }}/{{ name }}#readme",
 {{/unless_eq}}
-"license": "MIT"
+  "license": "MIT"
 }

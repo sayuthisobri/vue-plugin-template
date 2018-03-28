@@ -60,6 +60,22 @@ module.exports = {
             message: 'GitHub Account',
             default: gitConfig.github && gitConfig.github.user
         },
+        test: {
+            type: 'list',
+            message: 'Test Framework',
+            choices: [
+                {
+                    name: 'Jest',
+                    value: 'jest',
+                    short: 'jest'
+                },
+                {
+                    name: 'Mocha (testem)',
+                    value: 'testem',
+                    short: 'testem'
+                }
+            ]
+        }
     },
     helpers: {
         nowYear() {
@@ -91,6 +107,10 @@ module.exports = {
             console.log(chalk.red('Error:'), e)
         });
     },
+    filters: {
+        'test/unit/setup.js': `test === 'testem'`,
+        'testem.json': `test === 'testem'`,
+    }
 };
 
 function runCommand(cmd, args, options) {

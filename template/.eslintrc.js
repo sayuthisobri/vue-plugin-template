@@ -30,4 +30,4 @@ module.exports = {
     requestAnimationFrame: true,
     performance: true
   }
-}
+};

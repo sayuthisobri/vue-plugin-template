@@ -1,16 +1,9 @@
-import {storiesOf} from '@storybook/vue'
-import {action} from '@storybook/addon-actions'
-import {linkTo} from '@storybook/addon-links'
-import MyComponent from '../Component.vue'
+import {storiesOf} from "@storybook/vue";
+import ComponentSimpleStory from "./ComponentSimpleStory.vue";
 
-storiesOf('Counter', module)
-  .add('simple', () => ({
-    components: {MyComponent},
-    template: '<my-component :value="count" @increment="count += 1" @decrement="count -= 1"></my-component>',
-    data() {
-      return {
-        count: 0
-      }
-    },
-    methods: {action: action('clicked')}
-  }));
+storiesOf("Counter", module)
+  .add("simple", () => ({
+    components: {story1: ComponentSimpleStory},
+    template: `<story1></story1>`
+  }))
+;

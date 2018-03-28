@@ -1,16 +1,14 @@
 <template>
   <div class="counter">
-    <p class="counter-value">{{ value }}</p>
+    <p class="counter-value"> {{ counter }}</p>
     <div class="counter-controls">
       <button
         type="button"
-        @click="increment"
-      >+
+        @click="increment">+
       </button>
       <button
         type="button"
-        @click="decrement"
-      >-
+        @click="decrement">-
       </button>
     </div>
   </div>
@@ -18,8 +16,7 @@
 
 <script>
   export default {
-    name: 'MyComponent',
-
+    name: "MyComponent",
     props: {
       value: {
         type: Number,
@@ -29,28 +26,33 @@
 
     data() {
       return {
-        msg: 'Welcome to Your Vue.js component'
-      }
+        counter: this.value
+      };
     },
 
     mounted() {
       this.$nextTick(() => {
-        const nop = () => {
-        };
-        nop()
-      })
+        const nop = () => {};
+        nop();
+      });
     },
 
     methods: {
       increment() {
-        this.$emit('increment')
+        this.$emit(`increment`, ++this.counter);
       },
 
       decrement() {
-        this.$emit('decrement')
+        this.$emit(`decrement`, --this.counter);
+      }
+    },
+
+    watch: {
+      value(newVal) {
+        this.counter = +newVal;
       }
     }
-  }
+  };
 </script>
 
 <style lang="scss">

@@ -14,7 +14,7 @@ insert_final_newline = true
 # Trailing whitespace is significant in markdown files.
 [*.md]
 trim_trailing_whitespace = false
-max_line_length = 80
+max_line_length = 120
 
 [Makefile]
 indent_size = 4
